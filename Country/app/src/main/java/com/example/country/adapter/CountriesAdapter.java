@@ -17,7 +17,8 @@ import java.util.ArrayList;
 
 public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.CountriesViewHolder> {
 
-    private ArrayList mData;
+    private ArrayList<CountryModel> mData;
+    private ItemClickListener mListener;
 
     public CountriesAdapter() {
         mData = new ArrayList();
@@ -46,6 +47,8 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
      */
     public void addItem(CountryModel country) {
         mData.add(country);
+
+        notifyDataSetChanged();
     }
 
     /***
@@ -54,6 +57,31 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
      */
     public void removeItem(CountryModel country) {
         mData.remove(country);
+
+        notifyDataSetChanged();
+    }
+
+    /***
+     * Get item by position
+     * @param position
+     * @return
+     */
+    public CountryModel getItem(int position) {
+        return mData.get(position);
+    }
+
+    /***
+     * Item listener
+     * @param listener
+     */
+    public void setOnItemClickListener(ItemClickListener listener) {
+        mListener = listener;
+    }
+    /***
+     *
+     */
+    public interface ItemClickListener {
+        void clickTriggered(View view, int position);
     }
 
     /***
@@ -67,6 +95,15 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
             super(itemView);
 
             countryName = itemView.findViewById(R.id.tv_country_name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListener != null) {
+                        mListener.clickTriggered(view, getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }
