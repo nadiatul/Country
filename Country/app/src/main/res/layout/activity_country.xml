@@ -22,4 +22,5 @@
 
     <include layout="@layout/content_country" />
 
+
 </android.support.design.widget.CoordinatorLayout>

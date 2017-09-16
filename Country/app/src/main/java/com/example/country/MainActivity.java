@@ -11,24 +11,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button submit;
-    public static final String EXTRA_MESSAGE = "You selected ";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        submit = (Button) findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Spinner cntn = (Spinner) findViewById(R.id.spinner);
-                String message = cntn.getSelectedItem().toString();
-
-                TextView txt = (TextView) findViewById(R.id.textView);
-                txt.setText(message);
-            }
-        });
     }
 }
